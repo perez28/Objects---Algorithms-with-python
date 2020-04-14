@@ -41,6 +41,7 @@ print (myPerson1.lastname )
 """
 
 #constructor con valores inicializados
+"""
 class Person :
     def __init__ (self,nombre = "[no name]",apellido = "[no apellido") :
         self.firstname = nombre
@@ -52,3 +53,35 @@ myPerson1 = Person()
 myPerson2 = Person(apellido='jimenez')
 print (myPerson1.firstname) 
 print (myPerson2.lastname )
+"""
+# getters and setters
+class BankAccount:
+    def __init__(self, name, balance = 0.0):
+        self.log("Account created!")
+        self.name = name
+        self.balance = balance
+
+    def getBalance(self):
+        self.log("Balance checked at " + str(self.balance))
+        return self.balance
+    #aunque no esta explicitamente deposito es un setter, 
+    #esto es ejemplo de que poner set no es necesario y no va con python
+    def deposit(self, amount): 
+        self.balance += amount
+        self.log("+" + str(amount) + ": " + str(self.balance))
+
+    def withdraw(self, amount):
+        self.balance -= amount
+        self.log("-" + str(amount) + ": " + str(self.balance))
+
+    def log(self, message): 
+        mylog = open ("log.txt" , "a")
+        print (message,file = mylog) # escriba los datos (mensaje) dentro del archivo (mylog)
+        mylog.close()
+        
+myBankAccount = BankAccount("David Joyner")
+myBankAccount.deposit(20.0)
+print(myBankAccount.getBalance())
+myBankAccount.withdraw(10.0)
+print(myBankAccount.getBalance())
+

@@ -146,14 +146,18 @@ Un Getter simplemente devuelve el valor de una determinada variable.Se usan com�
 
 
 #### Setters
+
+
 Un tipo común de método en clases de escritura que establece una variable contenida dentro de la clase en un nuevo valor. Se usan comúnmente
 para permitir que ocurra otro procesamiento cada vez que se cambia la variable, como el registro.
+
 
 #### Por que hacer esto, cambiar variables por medio de estos metodos?.
 
 ¿No podemos acceder directamente a esas variables directamente?
 Muchas veces, es mejor diseñar nuestro código de manera que las variables dentro no pueden modificarse directamente.
 Por ejemplo, imagine nuevamente que estamos escribiendo una clase para representar una cuenta bancaria.
+
 Imagina que esta clase va a ser
 Accedido por diferentes bancos y diferentes clientes. No queremos que todos solo sean
 capaz de cambiar el valor del saldo a voluntad.
@@ -161,3 +165,43 @@ Solo deberían poder cambiarlo de ciertas maneras,
 como procesar una transacción.Métodos como getters y setters permiten dictamos las reglas bajo las cuales las variables de clase pueden
 ser accedido y cambiado.
 
+Tenga en cuenta que en Python, en realidad, es relativamente raro usar getters y setters. Si bien estos son obligatorios o altamente recomendados en algunos lenguajes (como Java), en realidad a menudo se desaconseja en Python para mantener el enfoque "Pythonic" de mantener un fácil acceso a las variables y los datos. A menos que realmente vaya a utilizar una de las ventajas asociadas con getters y setters, puede ser mejor omitir su uso.
+
+Aún así, es importante saber cómo funcionan cuando los encuentra, y conocer sus ventajas para saber cuándo usarlos.
+
+Ejemplo getters y setterts
+
+```python
+# getters and setters
+class BankAccount:
+    def __init__(self, name, balance = 0.0):
+        self.log("Account created!")
+        self.name = name
+        self.balance = balance
+
+    def getBalance(self):
+        self.log("Balance checked at " + str(self.balance))
+        return self.balance
+    #aunque no esta explicitamente deposito es un setter, 
+    #esto es ejemplo de que poner set no es necesario y no va con python
+    def deposit(self, amount): 
+        self.balance += amount
+        self.log("+" + str(amount) + ": " + str(self.balance))
+
+    def withdraw(self, amount):
+        self.balance -= amount
+        self.log("-" + str(amount) + ": " + str(self.balance))
+
+    def log(self, message): 
+        mylog = open ("log.txt" , "a")
+        print (message,file = mylog) # escriba los datos (mensaje) dentro del archivo (mylog)
+        mylog.close()
+        
+myBankAccount = BankAccount("David Joyner")
+myBankAccount.deposit(20.0)
+print(myBankAccount.getBalance())
+#20.0
+myBankAccount.withdraw(10.0)
+#10.0
+print(myBankAccount.getBalance())
+```
