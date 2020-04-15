@@ -205,3 +205,83 @@ myBankAccount.withdraw(10.0)
 #10.0
 print(myBankAccount.getBalance())
 ```
+
+### Pasar valores por referecncia y combinación de clases
+en un primer ejemplo se mostrara como pasar por parametros a (los parametrod de un constructor) una instancia de otra clase.
+
+otra forma de enteender esto es:
+específicas y completas de esos formularios. ¿Cómo funciona esto con la combinación de clases?
+
+Imagine que cuando fue al consultorio del médico, primero le pidieron que completara un formulario con su información personal básica: nombre, fecha de nacimiento, dirección, número de teléfono, etc. Ese formulario es como una clase para el paciente, y acaba de crear un formulario específico instancia de esa clase.
+
+Imagine que ese formulario tiene un identificador, como "Paciente # 14529". Ahora, en lugar de completar su nombre, fecha de nacimiento, dirección, etc. en todos los formularios posteriores, simplemente coloque el identificador: "14529". Ese identificador le dice a quien está leyendo el formulario que vaya a mirar el otro formulario que ya creó, etiquetado como 14529.
+>ACC_GATech | 05.01.05.01-Tablet__1
+
+Ejemplo:
+```python
+#Define la clase Persona
+class Person:
+    def __init__(self, name, eyecolor, age):
+        self.name = name
+        self.eyecolor = eyecolor
+        self.age = age
+
+#Se define la clase nombre
+class Name:
+    def __init__(self, firstname, lastname):
+        self.firstname = firstname
+        self.lastname = lastname
+
+#Creates a person with eyecolor "brown", age 30, and
+#a name with firstname "David", lastname "Joyner",
+myPerson = Person(Name("David", "Joyner"), "brown", 30)#dentro la clase persona se instancia la clase nombre con los respectivos parametros del constructor de name
+print(myPerson.name.firstname)
+print(myPerson.name.lastname)
+print(myPerson.eyecolor)
+print(myPerson.age)
+```
+siempre hay que procurar optimizar la memoria de nuestro programa, como en el siguiete ejemplo:
+donde song_1 y song_2 tienen el mismo artista y etiqueta. Eso significa que cada uno debe tener la misma instancia del artista: no cree instancias separadas  de artista para cada canción.
+```python
+class Artist:
+    def __init__(self, name, label):
+        self.name = name
+        self.label = label
+
+class Song:
+    def __init__(self, name, album, year, artist):
+        self.name = name
+        self.album = album
+        self.year = year
+        self.artist = artist
+        
+
+
+artis =Artist("Taylor Swift", "Big Machine Records, LLC") # se crea esta instancia
+song_1 = Song ("You Belong With Me","Fearless",2008,artis) # se utiliza el mismo artista para song_2
+song_2 = Song ("All Too Well","Red",2012,artis)# se utiliza el mismo artista que para song_1
+song_3 = Song ("Up We Go","Midnight Machines",2016,Artist("LiGHTS", "Warner Bros. Records Inc."))
+```
+### Pasar un objeto como parametro a una Función
+
+```python
+class Artist:
+    def __init__(self, name, label):
+        self.name = name
+        self.label = label
+
+class Song:
+    def __init__(self, name, album, year, artist):# este artist
+        self.name = name
+        self.album = album
+        self.year = year
+        self.artist = artist # es este artist
+
+def get_song_string (cansion) : # cansion es un parametro que toma la forma de un objeto tipo song que dentro tiene un artista
+    resultado =  '"'+ cansion.name + '"'+ " - " +   cansion.artist.name + " ("+ str(cansion.year)+")" # y es este cansion.`artist`.name
+    return resultado
+    
+new_artist = Artist("Taylor Swift", "Big Machine Records, LLC")
+new_song = Song("You Belong With Me", "Fearless", 2008, new_artist)# objeto cancion que dentro tiene un artista
+print(get_song_string(new_song))
+```
