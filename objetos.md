@@ -284,4 +284,116 @@ def get_song_string (cansion) : # cansion es un parametro que toma la forma de u
 new_artist = Artist("Taylor Swift", "Big Machine Records, LLC")
 new_song = Song("You Belong With Me", "Fearless", 2008, new_artist)# objeto cancion que dentro tiene un artista
 print(get_song_string(new_song))
+
 ```
+
+
+### Hacer copias reales.
+
+en ocaciones asignamos una instancia a otra instancia para tal vez acortar la creación de esta de la siguiete forma.
+
+```python
+myPerson1 = Person(Name("David", "Joyner"), "brown", 30)
+myPerson2 = MyPerson1 # las 2 instancias apuntan a las mismas variables, asi que cualquier modificacion por alguna de las 2 las afecta de igualmente a las 2
+```
+Otra forma de  asignacion que puede confundir:
+
+`myPerson2 = Person(myPerson1.name)`,hay que tener en cuenta que cuando ejecutemo `myPerson2.name.firstname = "Vrushali"`, esto afectara los valores tanto de:
+* `myPerson1.name.firstname`
+* `myPerson2.name.firstname`
+  
+por que estan aputando a la misma variable
+
+```python
+class Person:
+    def __init__(self, name, eyecolor, age):
+        self.name = name
+        self.eyecolor = eyecolor
+        self.age = age
+
+class Name:
+    def __init__(self, firstname, lastname):
+        self.firstname = firstname
+        self.lastname = lastname
+
+myPerson1 = Person(Name("David", "Joyner"), "brown", 30)
+myPerson2 = Person(myPerson1.name, myPerson1.eyecolor, myPerson1.age)
+myPerson2.eyecolor = "blue"
+print(myPerson1.eyecolor)
+print(myPerson2.eyecolor)
+myPerson2.name.firstname = "Vrushali"
+print(myPerson1.name.firstname) # retornará Vrushali
+print(myPerson2.name.firstname)# retornará Vrushali
+```
+
+La forma correcta de hacer lo anterior es de la siguiente manera:
+Es como acceder a la variable lo mas directamente que se pueda (acceder a un tipo inmutable)
+```python
+myPerson1 = Person(Name("David", "Joyner"), "brown", 30)
+myPerson2 = Person(Name(myPerson1.name.firstname, myPerson1.name.lastname),
+                   myPerson1.eyecolor, myPerson1.age)
+```
+
+### Abstracción 
+Es un principio de programación orientada a objetos que establece que solo la información esencial debe hacerse visible para el programa externo.
+por ejemplo Animal es un termino generico pero no una concreción En términos de POO decimos que es un concepto abstracto, que implementaremos por medio de una clase abstracta.No instanciaremos animales como tal en el mundo, sino que instanciaremos especímenes de un tipo de animal concreto, como por ejemplo un Perro.
+En resumen:
+Entendemos que "animal" es una clase abstracta, pero "hormiga", "perro" o "gorrión" no serían clases abstractas, que sí podríamos instanciar.
+
+### Polimorfismo
+El principio de que una llamada a un método puede comportarse de manera diferente dependiendo de los argumentos y el objeto con el que se llama. (esta definición es de edx no tengo l aculpa).
+Pero aqui va una mejor:
+Pues bien, polimorfismo es el mecanismo por el cual podemos "relajar el sistema de tipos", de modo que nos acepte también objetos de las clases hijas o derivadas.
+
+Por tanto, la "relajación" del sistema de tipos no es total, sino que tiene que ver con las clasificaciones de herencia que tengas en tus sistemas de clases. Si defines un array con casillas de una determinada clase, el compilador también te aceptará que metas en esas casillas objetos de una clase hija de la que fue declarada. Si declaras que una función recibe como parámetros objetos de una determinada clase, el compilador también te aceptará que le envíes en la invocación objetos de una clase derivada de aquella que fue declarada.
+
+En concreto, en nuestro array de vehículos, gracias al polimorfismo podrás contener en los elementos del array no solo vehículos genéricos, sino también todos los objetos de clases hijas o derivadas de la clase "Vehiculo", osea objetos de la clase "Coche", "Moto", "Bus" o cualquier hija que se haya definido. 
+> [Tomado de](https://desarrolloweb.com/articulos/polimorfismo-programacion-orientada-objetos-concepto.html)
+
+### Herencia
+Un principio de programación orientada a objetos donde se pueden crear clases que son "subclases" de otras clases, heredando todas las
+variables y métodos de la otra clase al tiempo que proporciona nuevas variables, métodos o comportamientos propios.
+
+La herencia es la transmisión del código entre unas clases y otras. Para soportar un mecanismo de herencia tenemos dos clases: la clase padre y la/s clase/s hija/s. La clase padre es la que transmite su código a las clases hijas.
+
+En la siguiete imagen se puede observar la dinamica de lo que es la herencia.
+
+![Herencia](/imagenes/herencia.png)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+El supervisor como el Obrero tienen acceso a los mismos atributos de una persona ademas de los propios.
