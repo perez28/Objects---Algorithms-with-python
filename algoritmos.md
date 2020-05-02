@@ -195,4 +195,123 @@ def sort_with_select(a_list):
 print(sort_with_select([5, 3, 1, 2, 4]))
 
 ```
+### Merge Sort
+Debo decir que me costo bastante entenderlo como trabaja completamente, el siguiente es un algoritmo que encontre en la red y fue el que estaba analizando, por cierto [Este](http://www.pythontutor.com/visualize.html#mode=edit) es un buen sitio para ver paso a paso como se ejecuta tu codigo en python.
+
+```python
+#Merge Sort  fuente: la web 
+def mergeSort(myList):
+    if len(myList) > 1:
+        mid = len(myList) // 2       
+        left = myList[:mid]        
+        right = myList[mid:]        
+        # Recursive call on each half
+        mergeSort(left)
+        mergeSort(right)
+        # Two iterators for traversing the two halves
+        i = 0
+        j = 0        
+        # Iterator for the main list
+        k = 0       
+        while i < len(left) and j < len(right):            
+            if left[i] < right[j]:               
+                # The value from the left half has been used
+                myList[k] = left[i]          
+                # Move the iterator forward
+                i += 1                
+            else:
+                
+                myList[k] = right[j]               
+                j += 1                
+            # Move to the next slot
+            k += 1
+        # For all the remaining values
+        while i < len(left):                       
+            myList[k] = left[i]                    
+            i += 1            
+            k += 1
+        while j < len(right):            
+            
+            myList[k]=right[j]            
+            j += 1           
+            k += 1       
+
+myList = list(range (5,0,-1))
+mergeSort(myList)
+print(myList)
+
+```
+Este otro ejemplo de codigo es tomado del curso guía
+
+```python
+def mergesort(lst):    
+    
+    if len(lst) <= 1:
+        return lst
+    
+  
+    else:
+
+        midpoint = len(lst) // 2        
+        left = mergesort(lst[:midpoint])
+       
+        right = mergesort(lst[midpoint:])       
+        newlist = []
+        while len(left) and len(right) > 0:
+            
+            if left[0] < right[0]:
+                newlist.append(left[0])
+                del left[0]            
+            else:
+                newlist.append(right[0])
+                del right[0]       
+
+        newlist.extend(left)
+        newlist.extend(right)       
+
+        return newlist
+
+
+print(mergesort([2, 5, 3, 82, 6, 9, 1, 4, 7]))
+```
+### Algoritmos de Busqueda
+ Algoritmos que toman como entrada una lista y un valor para buscar, y producen como salida el índice o índices donde se encontró ese valor en la lista. es realmente sencilo.
+
+ ```python
+ def linear (lista,busqueme) :
+    
+    for i in range(len(lista)) :
+        if lista[i] == busqueme :
+            return i
+    return False
+a_list = [5, 1, 3, 6, 7, 3, 1, 6, 7, 8, 3, 6]
+print(linear(a_list, 6))
+
+ ```
+
+ Busqueda Binaria
+ ```python
+ def binaria (lista,buscame) :
+    final =  len (lista)-1
+    inicio = 0
+    if buscame == lista [inicio] :
+        return inicio
+    elif buscame == final :
+        return final
+    while inicio <= final :        
+        m = (inicio+ final)//2
+        if buscame == lista[m] :
+            return m
+        elif buscame  > lista [m ]:
+            inicio = m +1
+            
+        else:
+            final = m-1
+            
+    return False 
+lis = list(range (50,100,1))
+print (lis)
+print (binaria (lis,50))
+ ```
+ 
 
